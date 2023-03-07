@@ -2,6 +2,8 @@ package com.riis.mapviewdemo
 
 import android.os.Bundle
 import android.view.View
+import android.content.Context
+import android.content.Intent
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
@@ -19,6 +21,33 @@ import com.mapbox.mapboxsdk.maps.SupportMapFragment
 import dji.common.flightcontroller.FlightControllerState
 
 
+class MainActivity : AppCompatActivity() {
+
+    private val clickListener =
+        View.OnClickListener { v: View ->
+            // based on what the user picks, it'll use either Waypoint 1 or 2
+            when (v.id) {
+                R.id.btn_waypoint1 -> startActivity(
+                    this@MainActivity,
+                    Waypoint1Activity::class.java
+                )
+            }
+        }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        findViewById<View>(R.id.btn_waypoint1).setOnClickListener(clickListener)
+        // set the listener to the previously defined clickListener
+    }
+
+    private fun startActivity(context: Context, activity: Class<*>?) {
+        // this will start the activity
+        val intent = Intent(context, activity)
+        context.startActivity(intent)
+    }
+}
+/*
 class MainActivity : AppCompatActivity(), OnMapReadyCallback, View.OnClickListener {
 
         private lateinit var record: Button
@@ -116,4 +145,4 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback, View.OnClickListen
         }
 
 
-}
+}*/
